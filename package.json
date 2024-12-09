@@ -1,0 +1,24 @@
+{
+  "name": "natour",
+  "version": "1.0.0",
+  "description": "Tours Application",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "start:prod": "NODE_ENV=production nodemon server.js"
+  },
+  "author": "Miyaad J",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.3",
+    "morgan": "^1.10.0",
+    "slugify": "^1.6.6",
+    "validator": "^13.12.0"
+  },
+  "devDependencies": {
+    "ndb": "^1.1.5",
+    "nodemon": "^3.1.7"
+  }
+}
