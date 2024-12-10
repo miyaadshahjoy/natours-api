@@ -12,7 +12,7 @@ const tourSchema = new mongoose.Schema(
       trim: true,
       maxlength: [40, 'a name must not contain more than 40 characters'],
       minlength: [10, 'a name must contain atleast 10 characters'],
-      validate: [validator.isAlpha, 'the name should only contain alphabets'],
+      // validate: [validator.isAlpha, 'the name should only contain alphabets'],
     },
     slug: String,
     duration: {
@@ -28,15 +28,14 @@ const tourSchema = new mongoose.Schema(
       required: [true, 'A tour must have difficulty'],
       enum: {
         values: ['easy', 'medium', 'difficult'],
-        message:
-          'Difficulty must have [easy, medium and difficult] these 3 values',
+        message: 'Difficulty must be either: easy, medium or difficult',
       },
     },
     ratingsAverage: {
       type: Number,
       default: 4.5,
-      min: [1, 'ratings must be atleast 1.0 or above'],
-      max: [5, 'ratings must not be more than 5.0'],
+      max: [5, 'Ratings must not be more than 5.0'],
+      min: [1, 'Ratings must be atleast 1.0 or above'],
     },
     ratingsQuantity: {
       type: Number,
@@ -103,7 +102,7 @@ tourSchema.pre('save', function (next) {
 });
 
 tourSchema.post('save', function (docs, next) {
-  console.log(docs);
+  // console.log(docs);
   next();
 });
 
@@ -116,8 +115,8 @@ tourSchema.pre(/^find/, function (next) {
 });
 
 tourSchema.post(/^find/, function (docs, next) {
-  console.log(docs);
-  console.log(`Time taken ${Date.now() - this.start} milliseconds`);
+  // console.log(docs);
+  // console.log(`Time taken ${Date.now() - this.start} milliseconds`);
   next();
 });
 

@@ -57,7 +57,7 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 exports.getTour = catchAsync(async (req, res, next) => {
   const id = req.params.id;
   const tour = await Tour.find({ _id: id });
-  if (!tour.length) {
+  if (!tour) {
     return next(new AppError('No tour for this ID', 404));
   }
   res.status(200);
@@ -84,10 +84,11 @@ exports.updateTour = catchAsync(async (req, res, next) => {
   const id = req.params.id;
   const tour = await Tour.findByIdAndUpdate(id, req.body, {
     new: true,
-    runValidator: true,
+    runValidators: true,
   });
+  console.log(tour);
 
-  if (!tour.length) {
+  if (!tour) {
     return next(new AppError('No tour for this ID', 404));
   }
   res.status(200);

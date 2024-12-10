@@ -4,8 +4,9 @@
   "description": "Tours Application",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "start:prod": "NODE_ENV=production nodemon server.js"
+    "start": "set NODE_ENV=development&&nodemon server.js",
+    "start:prod": "set NODE_ENV=production&&nodemon server.js",
+    "debug": "ndb server.js"
   },
   "author": "Miyaad J",
   "license": "ISC",
