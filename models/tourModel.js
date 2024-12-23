@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { default: slugify } = require('slugify');
-const validator = require('validator');
+// const validator = require('validator');
 
 //creating a Schema
 const tourSchema = new mongoose.Schema(
