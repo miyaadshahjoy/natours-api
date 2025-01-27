@@ -30,7 +30,8 @@ html {
 body {
   line-height: 1.6;
   font-weight: 300;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 1px;
   color: #777;
   padding: 3rem;
   min-height: 100vh;
@@ -233,6 +234,8 @@ body {
 .btn--green {
   background-color: #55c57a;
   color: #fff;
+  /* width: 100%; */
+  letter-spacing: 2px;
 }
 .btn--green::after {
   background-color: #55c57a;
@@ -565,7 +568,7 @@ body {
 
 .mapboxgl-popup-content {
   text-align: center;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Poppins', sans-serif;
   padding: 1.5rem !important;
   font-size: 1.4rem;
   -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15) !important;
@@ -1004,7 +1007,8 @@ body {
   width: 25rem;
   border-bottom: 1px solid currentColor;
 }
-.nav__user-img {
+img.nav__user-image {
+  display: inline-block;
   height: 3.5rem;
   width: 3.5rem;
   border-radius: 50%;

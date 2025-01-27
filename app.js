@@ -1,25 +1,42 @@
 const express = require('express');
+// const crypto = require('crypto');
+const path = require('path');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
-const xss = require('xss');
+// const xss = require('xss');
 const DOMPurify = require('dompurify');
 const { JSDOM } = require('jsdom');
 const hpp = require('hpp');
+const cookieParser = require('cookie-parser');
 
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
+const viewsRouter = require('./routes/viewRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
-const app = express();
 
 //////////////////////////////////////
+const app = express();
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
 
 // Global middlewares
+// Reading static files
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Set security HTTP headers
-app.use(helmet());
+// app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", 'https://unpkg.com', 'https://cdn.jsdelivr.net'],
+    },
+  })
+);
 
 // Limit requests from same IP
 const limiter = rateLimit({
@@ -34,7 +51,15 @@ if (process.env.NODE_ENV === 'development') {
 }
 // Body Parser, Read data from body to req.body
 app.use(express.json({ limit: '10kb' }));
-
+// Cookie parser
+app.use(cookieParser());
+// Form Parser, parse data from form
+app.use(
+  express.urlencoded({
+    extended: true,
+    limit: '10kb',
+  })
+);
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
 
@@ -70,9 +95,6 @@ app.use(
   })
 );
 
-// Reading static files
-app.use(express.static(`${__dirname}/public/`));
-
 // Test middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
@@ -83,17 +105,13 @@ app.use((req, res, next) => {
 ///////////////////////////////////////
 
 // Routes
+
+app.use('/', viewsRouter);
 app.use('/api/v1/tours/', tourRouter);
 app.use('/api/v1/users/', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
 
 app.all('*', (req, res, next) => {
-  // const err = new Error();
-  // err.statusCode = 404;
-  // err.status = 'fail';
-  // err.message = `Can't find ${req.originalUrl} on this server!⛔🚫⛔`;
-  // next(err);
-
   next(
     new AppError(`Can't find ${req.originalUrl} on this server!⛔🚫⛔`, 404)
   );

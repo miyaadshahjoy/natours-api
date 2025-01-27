@@ -21,7 +21,10 @@ const userSchema = new mongoose.Schema({
       'The email you provided is not a valid email',
     ],
   },
-  photo: String,
+  photo: {
+    type: String,
+    default: 'default.jpg',
+  },
   role: {
     type: String,
     enum: {
