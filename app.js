@@ -10,9 +10,11 @@ const DOMPurify = require('dompurify');
 const { JSDOM } = require('jsdom');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const compressed = require('compression');
 
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
+const bookingRouter = require('./routes/bookingRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const viewsRouter = require('./routes/viewRoutes');
 const AppError = require('./utils/appError');
@@ -33,7 +35,12 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", 'https://unpkg.com', 'https://cdn.jsdelivr.net'],
+      scriptSrc: [
+        "'self'",
+        'https://unpkg.com',
+        'https://cdn.jsdelivr.net',
+        'https://js.stripe.com/v3/',
+      ],
     },
   })
 );
@@ -95,6 +102,8 @@ app.use(
   })
 );
 
+app.use(compressed());
+
 // Test middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
@@ -110,6 +119,7 @@ app.use('/', viewsRouter);
 app.use('/api/v1/tours/', tourRouter);
 app.use('/api/v1/users/', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
+app.use('/api/v1/bookings', bookingRouter);
 
 app.all('*', (req, res, next) => {
   next(
