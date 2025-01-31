@@ -4,7 +4,7 @@
   "description": "Tours Application",
   "main": "app.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "set NODE_ENV=production&&node server.js",
     "dev": "set NODE_ENV=development&&nodemon server.js",
     "start:prod": "set NODE_ENV=production&&nodemon server.js",
     "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
