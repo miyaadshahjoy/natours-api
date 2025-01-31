@@ -102,7 +102,7 @@ app.use(
   })
 );
 
-app.use(compressed());
+// app.use(compressed());
 
 // Test middlewaress
 app.use((req, res, next) => {
