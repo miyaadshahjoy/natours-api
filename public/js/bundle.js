@@ -6085,9 +6085,8 @@ var login = exports.login = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          console.log('Entered');
-          _context.prev = 1;
-          _context.next = 4;
+          _context.prev = 0;
+          _context.next = 3;
           return (0, _axios.default)({
             method: 'post',
             url: 'http://127.0.0.1:3000/api/v1/users/login',
@@ -6096,7 +6095,7 @@ var login = exports.login = /*#__PURE__*/function () {
               password: password
             }
           });
-        case 4:
+        case 3:
           result = _context.sent;
           if (result.data.status === 'success') {
             (0, _alert.showAlert)('success', 'Successfully logged in');
@@ -6104,17 +6103,17 @@ var login = exports.login = /*#__PURE__*/function () {
               location.assign('/');
             }, 1500);
           }
-          _context.next = 11;
+          _context.next = 10;
           break;
-        case 8:
-          _context.prev = 8;
-          _context.t0 = _context["catch"](1);
+        case 7:
+          _context.prev = 7;
+          _context.t0 = _context["catch"](0);
           (0, _alert.showAlert)('error', _context.t0.response.data.message);
-        case 11:
+        case 10:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[1, 8]]);
+    }, _callee, null, [[0, 7]]);
   }));
   return function login(_x, _x2) {
     return _ref.apply(this, arguments);
@@ -6201,21 +6200,20 @@ var bookTour = exports.bookTour = /*#__PURE__*/function () {
           });
         case 3:
           session = _context.sent;
-          console.log(session);
           // 2) Create checkout form + charge credit card
           window.location.href = session.data.session.url;
-          _context.next = 12;
+          _context.next = 11;
           break;
-        case 8:
-          _context.prev = 8;
+        case 7:
+          _context.prev = 7;
           _context.t0 = _context["catch"](0);
           console.log(_context.t0);
           (0, _alert.default)(_context.t0.message);
-        case 12:
+        case 11:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 8]]);
+    }, _callee, null, [[0, 7]]);
   }));
   return function bookTour(_x) {
     return _ref.apply(this, arguments);
@@ -6242,15 +6240,14 @@ var updateSettings = exports.updateSettings = /*#__PURE__*/function () {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          console.log(data);
           url = type === 'data' ? 'http://127.0.0.1:3000/api/v1/users/updateUserAccount' : 'http://127.0.0.1:3000/api/v1/users/updatePassword';
-          _context.next = 5;
+          _context.next = 4;
           return (0, _axios.default)({
             method: 'PATCH',
             url: url,
             data: data
           });
-        case 5:
+        case 4:
           res = _context.sent;
           if (res.data.status === 'success') {
             (0, _alert.showAlert)('success', "".concat(type.toUpperCase(), " updated successfully"));
@@ -6258,17 +6255,17 @@ var updateSettings = exports.updateSettings = /*#__PURE__*/function () {
               location.reload(true);
             }, 1500);
           }
-          _context.next = 12;
+          _context.next = 11;
           break;
-        case 9:
-          _context.prev = 9;
+        case 8:
+          _context.prev = 8;
           _context.t0 = _context["catch"](0);
           (0, _alert.showAlert)('error', _context.t0.response.data.message);
-        case 12:
+        case 11:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 9]]);
+    }, _callee, null, [[0, 8]]);
   }));
   return function updateSettings(_x, _x2) {
     return _ref.apply(this, arguments);
@@ -6302,7 +6299,6 @@ if (loginForm) {
     e.preventDefault();
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
-    console.log('Entered');
     (0, _login.login)(email, password);
   });
 }
@@ -6313,7 +6309,6 @@ if (userDataForm) {
   userDataForm.addEventListener('submit', function (e) {
     e.preventDefault();
     var form = new FormData();
-    console.log(document.getElementById('photo').file);
     form.append('name', document.getElementById('name').value);
     form.append('email', document.getElementById('email').value);
     form.append('photo', document.getElementById('photo').files[0]);
@@ -6328,23 +6323,22 @@ if (userPasswordForm) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
             e.preventDefault();
-            console.log('Entered');
             document.querySelector('.btn--password').textContent = 'Saving...';
             currentPassword = document.getElementById('password-current').value;
             newPassword = document.getElementById('password').value;
             newPasswordConfirm = document.getElementById('password-confirm').value;
-            _context.next = 8;
+            _context.next = 7;
             return (0, _updateSettings.updateSettings)({
               currentPassword: currentPassword,
               newPassword: newPassword,
               newPasswordConfirm: newPasswordConfirm
             }, 'password');
-          case 8:
+          case 7:
             document.getElementById('password-current').value = '';
             document.getElementById('password').value = '';
             document.getElementById('password-confirm').value = '';
             document.querySelector('.btn--password').textContent = 'Save password';
-          case 12:
+          case 11:
           case "end":
             return _context.stop();
         }
@@ -6387,7 +6381,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "2862" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "3687" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
